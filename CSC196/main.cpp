@@ -7,6 +7,7 @@
 #include "Base/ref_pointer.h"
 #include "Base/timer.h"
 #include "Base/random.h"
+#include "Base/filesystem.h"
 
 #include <iostream>
 #include <assert.h>
@@ -116,7 +117,9 @@ int main()
 	//function3();
 	
 	//randIntro();
-	randSample();
+	//randSample();
+
+	std::cout << filesystem::file_exists("test.txt") << std::endl;
 
 	std::cout << std::endl << "Hello World!" << std::endl << std::endl;
 }

@@ -152,12 +152,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Base\assert.cpp" />
+    <ClCompile Include="Base\filesystem.cpp" />
     <ClCompile Include="Base\heap.cpp" />
     <ClCompile Include="Base\memory.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\assert.h" />
+    <ClInclude Include="Base\filesystem.h" />
     <ClInclude Include="Base\heap.h" />
     <ClInclude Include="Base\memory.h" />
     <ClInclude Include="Base\random.h" />
