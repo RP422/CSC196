@@ -1,13 +1,7 @@
 // CSC196.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "Base/assert.h"
-#include "Base/memory.h"
-#include "Base/smart_ptr.h"
-#include "Base/ref_pointer.h"
-#include "Base/timer.h"
-#include "Base/random.h"
-#include "Base/filesystem.h"
+#include "../core/core.h"
 
 #include <iostream>
 #include <assert.h>
@@ -125,9 +119,11 @@ void fileSample()
 	filesystem::create_directory("textures/a/b");
 	filesystem::set_current_path("textures/a");
 
-	//std::vector<int> numbers{ 1, 2, 3, 4, 5 };
-	//filesystem::write_file("vectors.txt", numbers.data(), (numbers.size() * sizeof(int)));
+	// Create the file
+	std::vector<int> numbers{ 1, 2, 3, 4, 5 };
+	filesystem::write_file("vectors.txt", numbers.data(), (numbers.size() * sizeof(int)));
 
+	// Read the file
 	std::vector<int> newNumbers;
 	int* buffer = nullptr;
 	size_t size;
@@ -140,6 +136,9 @@ void fileSample()
 	}
 
 	filesystem::free_file(buffer);
+
+	// Delete the file
+	filesystem::delete_file("vectors.txt");
 }
 
 int main()
