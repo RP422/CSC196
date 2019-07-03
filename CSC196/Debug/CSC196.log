@@ -1,4 +1,5 @@
-﻿  main.cpp
-d:\active classes\csc196 - c++ programming ii\code\csc196\main.cpp(14): warning C4002: too many arguments for function-like macro invocation 'ASSERT'
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (CSC196.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  main.cpp
 d:\active classes\csc196 - c++ programming ii\code\csc196\main.cpp(15): warning C4002: too many arguments for function-like macro invocation 'ASSERT'
-  CSC196.vcxproj -> D:\Active Classes\CSC196 - C++ Programming II\Code\Debug\CSC196.exe
+d:\active classes\csc196 - c++ programming ii\code\csc196\main.cpp(16): warning C4002: too many arguments for function-like macro invocation 'ASSERT'
+  CSC196.vcxproj -> D:\Active Classes\CSC196 - C++ Programming II\Code\Debug\game.exe

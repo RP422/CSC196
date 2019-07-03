@@ -2,6 +2,7 @@
 //
 
 #include "../core/core.h"
+#include "../external/core/include/core.h"
 
 #include <iostream>
 #include <assert.h>
@@ -141,29 +142,59 @@ void fileSample()
 	filesystem::delete_file("vectors.txt");
 }
 
-int main()
+void sampleMethods()
 {
-	//basics();
+	basics();
 
-	//function();
-	//function2();
-	//function3();
-	
-	//randIntro();
-	//randSample();
+	std::cout << std::endl;
+
+	function();
+	function2();
+	function3();
+
+	std::cout << std::endl;
+
+	randIntro();
+	randSample();
+
+	std::cout << std::endl;
 
 	fileSample();
 
 	std::cout << std::endl << "Hello World!" << std::endl << std::endl;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+bool Update(float dt)
+{
+	bool quit = false;
+	if (Core::Input::IsPressed(Core::Input::KEY_ESCAPE))
+	{
+		quit = true;
+	}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	return quit;
+}
+
+void Draw(Core::Graphics& graphics)
+{
+	random_real_t random;
+
+	graphics.DrawLine(random(800.0f), random(600.0f), random(800.0f), random(600.0f));
+}
+
+void GameStuff()
+{
+	char window[] = "Game";
+	Core::Init(window, 800, 600);
+	Core::RegisterUpdateFn(Update);
+	Core::RegisterDrawFn(Draw);
+	Core::GameLoop();
+	Core::Shutdown();
+}
+
+int main()
+{
+	//sampleMethods();
+
+	GameStuff();
+}
