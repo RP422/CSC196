@@ -15,6 +15,23 @@
 #include <thread>
 #include <random>
 
+void basics()
+{
+	ASSERT(sizeof(int) == 5, "Invalid int size");
+	ASSERT(3 == 5, "That was not smart");
+
+	ref_ptr<int> r1(new int(30));
+
+	// Blocks like this have a self-contained scope. r2 will be destroyed after the block is exited.
+	{
+		ref_ptr<int> r2 = r1;
+	}
+
+	int* p = new int[32];
+
+	delete p;
+}
+
 void function()
 {
 	smart_ptr<int> p(new int(10));
@@ -96,21 +113,38 @@ void randSample()
 	}
 }
 
+void fileSample()
+{
+	std::cout << filesystem::file_exists("test.txt") << std::endl;
+
+	char pathname[255];
+	filesystem::get_current_path(pathname, 255);
+
+	std::cout << pathname << std::endl;
+
+	filesystem::create_directory("textures/a/b");
+	filesystem::set_current_path("textures/a");
+
+	//std::vector<int> numbers{ 1, 2, 3, 4, 5 };
+	//filesystem::write_file("vectors.txt", numbers.data(), (numbers.size() * sizeof(int)));
+
+	std::vector<int> newNumbers;
+	int* buffer = nullptr;
+	size_t size;
+	filesystem::read_file("vectors.txt", (void**)(&buffer), size);
+
+	for (int i = 0; i < 5; i++)
+	{
+		newNumbers.push_back(*(buffer + i));
+		std::cout << *(buffer + i) << std::endl;
+	}
+
+	filesystem::free_file(buffer);
+}
+
 int main()
 {
-	//static_assert(sizeof(int) == 5, "Invalid int size");
-	//ASSERT(3 == 5, "That was not smart");
-
-	//ref_ptr<int> r1(new int(30));
-
-	// Blocks like this have a self-contained scope. r2 will be destroyed after the block is exited.
-	//{
-	//	ref_ptr<int> r2 = r1;
-	//}
-
-	//int* p = new int[32];
-
-	//delete p;
+	//basics();
 
 	//function();
 	//function2();
@@ -119,7 +153,7 @@ int main()
 	//randIntro();
 	//randSample();
 
-	std::cout << filesystem::file_exists("test.txt") << std::endl;
+	fileSample();
 
 	std::cout << std::endl << "Hello World!" << std::endl << std::endl;
 }
