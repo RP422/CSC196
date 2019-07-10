@@ -3,11 +3,11 @@
 #include "ref_count.h"
 
 // A pointer that deconstructs when it goes out of scope.
-template<typename T>
+template<typename TBase>
 class ref_ptr
 {
 public:
-	ref_ptr(T* ptr) : m_ptr(ptr) 
+	ref_ptr(TBase* ptr) : m_ptr(ptr) 
 	{
 		if (ptr)
 		{
@@ -29,14 +29,14 @@ public:
 		}
 	}
 
-	ref_ptr(const ref_ptr<T>& rp)
+	ref_ptr(const ref_ptr<TBase>& rp)
 	{
 		m_ptr = rp.m_ptr;
 		m_ref_count = rp.m_ref_count;
 		m_ref_count->add_ref();
 	}
 	
-	ref_ptr& operator = (const ref_ptr<T>& rp)
+	ref_ptr& operator = (const ref_ptr<TBase>& rp)
 	{
 		if (m_ptr != rp.m_ptr)
 		{
@@ -58,12 +58,12 @@ public:
 		return *this;
 	}
 
-	T* get() { return m_ptr; }
+	TBase* get() { return m_ptr; }
 
-	T& operator * () { return *m_ptr; }
-	T* operator -> () { return m_ptr; }
+	TBase& operator * () { return *m_ptr; }
+	TBase* operator -> () { return m_ptr; }
 
 private:
 	ref_count* m_ref_count = nullptr;
-	T* m_ptr = nullptr;
+	TBase* m_ptr = nullptr;
 };

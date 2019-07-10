@@ -19,6 +19,9 @@
     <ClCompile Include="memory.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="json.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assert.h">
@@ -52,6 +55,9 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="core.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="json.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>

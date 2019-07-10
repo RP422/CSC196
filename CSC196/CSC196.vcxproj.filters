@@ -10,5 +10,16 @@
     <ClCompile Include="main.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="sample.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
