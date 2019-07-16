@@ -1,5 +1,6 @@
 #pragma once
 
+#include "scene.h"
 #include "../core/core.h"
 #include "../framework/singleton.h"
 #include "../external/core/include/core.h"
@@ -19,5 +20,6 @@ protected:
 	friend class Singleton<Game>;
 
 private:
+	Scene m_scene;
 	random_real_t m_random;
 };

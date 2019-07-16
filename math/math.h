@@ -1,6 +1,8 @@
 #pragma once
 
-#include "vector2.h"
+#include <cmath>
+#include <random>
+#include <algorithm>
 
 namespace math
 {

@@ -1,8 +1,7 @@
 #pragma once
+
 #include "..\\core\assert.h"
-#include <cmath>
-#include <random>
-#include <algorithm>
+#include "math.h"
 
 struct vector2
 {
@@ -124,4 +123,3 @@ struct vector2
 	static const vector2 left;
 	static const vector2 right;
 };
-

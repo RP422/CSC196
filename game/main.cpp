@@ -9,15 +9,15 @@
 
 random_real_t random;
 
-class Actor
+class GameObject
 {
 
 };
-class Player : public Actor
+class Player : public GameObject
 {
 
 };
-class Enemy : public Actor
+class Enemy : public GameObject
 {
 
 };
@@ -25,7 +25,7 @@ class Enemy : public Actor
 bool Update(float dt)
 {
 	bool quit = false;
-	if (Core::Input::IsPressed(Core::Input::KEY_ESCAPE))
+	if (Game::Instance()->Update(dt))
 	{
 		quit = true;
 	}
@@ -38,21 +38,24 @@ void Draw(Core::Graphics& graphics)
 	Game::Instance()->Draw(graphics);
 }
 
-int main()
+void JsonLoadTest()
 {
 	rapidjson::Document document;
 	json::load("test.json", document);
 	int i;
 	json::get_int(document, "test_int", i);
-	std::cout << i;
+	std::cout << i << std::endl;
+}
 
+int main()
+{
 	Game::Instance()->Startup();
 
-	Factory<Actor> factory;
-	factory.Register("PLAYER", new Creator<Player, Actor>);
-	factory.Register("ENEMY", new Creator<Enemy, Actor>);
+	Factory<GameObject> factory;
+	factory.Register("PLAYER", new Creator<Player, GameObject>);
+	factory.Register("ENEMY", new Creator<Enemy, GameObject>);
 
-	Actor* actor = factory.Create("PLAYER");
+	GameObject* actor = factory.Create("PLAYER");
 	delete actor;
 
 

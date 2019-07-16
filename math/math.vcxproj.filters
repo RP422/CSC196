@@ -13,9 +13,15 @@
     <ClInclude Include="vector2.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vector2.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
