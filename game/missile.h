@@ -2,19 +2,19 @@
 
 #include "actor.h"
 
-class Player : public Actor
+class Missile : public Actor
 {
 public:
-	Player() {}
-	virtual ~Player() {}
+	Missile() {}
+	virtual ~Missile() {}
 
-	const char* GetType() { return "Player"; }
+	const char* GetType() { return "Missile"; }
 
 	void Update(float dt) override;
 
 	virtual bool Load(const rapidjson::Value& value);
 
-	virtual Player* Clone() { return new Player(*this); }
+	virtual Missile* Clone() { return new Missile(*this); }
 
 private:
 	float m_speed = 0.0f;

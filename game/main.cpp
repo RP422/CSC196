@@ -9,18 +9,18 @@
 
 random_real_t random;
 
-class GameObject
-{
-
-};
-class Player : public GameObject
-{
-
-};
-class Enemy : public GameObject
-{
-
-};
+//class GameObject
+//{
+//
+//};
+//class Player : public GameObject
+//{
+//
+//};
+//class Enemy : public GameObject
+//{
+//
+//};
 
 bool Update(float dt)
 {
@@ -51,13 +51,12 @@ int main()
 {
 	Game::Instance()->Startup();
 
-	Factory<GameObject> factory;
-	factory.Register("PLAYER", new Creator<Player, GameObject>);
-	factory.Register("ENEMY", new Creator<Enemy, GameObject>);
+	//Factory<GameObject> factory;
+	//factory.Register("PLAYER", new Creator<Player, GameObject>);
+	//factory.Register("ENEMY", new Creator<Enemy, GameObject>);
 
-	GameObject* actor = factory.Create("PLAYER");
-	delete actor;
-
+	//GameObject* actor = factory.Create("PLAYER");
+	//delete actor;
 
 	char window[] = "Game";
 	Core::Init(window, 800, 600);
@@ -67,4 +66,5 @@ int main()
 	Core::Shutdown();
 
 	Game::Instance()->Shutdown();
+	Game::Instance()->Destroy();
 }

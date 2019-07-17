@@ -6,6 +6,8 @@
 
 #include <list>
 
+class Actor;
+
 // Yes, you can inherit from multiple classes. Cool, innit?
 class ActorFactory : public Factory<Actor>, public Singleton<ActorFactory>
 {
@@ -19,7 +21,7 @@ class Scene
 public:
 	Scene() {}
 	~Scene() {}
-
+	
 	void Startup();
 	void Shutdown();
 
@@ -36,4 +38,6 @@ protected:
 
 private:
 	std::list<Actor*> m_actors;
+
+	void DestroyFlaggedActors();
 };

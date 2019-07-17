@@ -25,6 +25,9 @@
     <ClCompile Include="scene.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="missile.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actor.h">
@@ -37,6 +40,9 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="scene.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="missile.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
