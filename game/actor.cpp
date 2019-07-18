@@ -11,10 +11,10 @@ void Actor::Update(float dt)
 		m_transform.translation += forward;
 	}
 
-	if (m_transform.translation.x > 800.0f) m_transform.translation.x = 0.0f;
-	if (m_transform.translation.x < 0.0f) 	m_transform.translation.x = 800.0f;
-	if (m_transform.translation.y > 600.0f) m_transform.translation.y = 0.0f;
-	if (m_transform.translation.y < 0.0f) 	m_transform.translation.y = 600.0f;
+	if (m_transform.translation.x > 1200.0f) m_transform.translation.x = 0.0f;
+	if (m_transform.translation.x < 0.0f) 	m_transform.translation.x = 1200.0f;
+	if (m_transform.translation.y > 800.0f) m_transform.translation.y = 0.0f;
+	if (m_transform.translation.y < 0.0f) 	m_transform.translation.y = 800.0f;
 
 }
 

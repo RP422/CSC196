@@ -59,7 +59,7 @@ int main()
 	//delete actor;
 
 	char window[] = "Game";
-	Core::Init(window, 800, 600);
+	Core::Init(window, 1200, 800);
 	Core::RegisterUpdateFn(Update);
 	Core::RegisterDrawFn(Draw);
 	Core::GameLoop();

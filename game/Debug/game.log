@@ -1,8 +1,2 @@
-﻿  actor.cpp
-  game.cpp
-  main.cpp
-  missile.cpp
-  player.cpp
-  scene.cpp
-  Generating Code...
+﻿  player.cpp
   game.vcxproj -> D:\Active Classes\CSC196 - C++ Programming II\Code\Debug\game.exe
