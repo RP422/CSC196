@@ -17,3 +17,17 @@ bool transform::Load(const rapidjson::Value& value)
 
 	return success;
 }
+
+void transform::update()
+{
+	matrix33 mxs;
+	mxs.scale(scale);
+
+	matrix33 mxr;
+	mxr.rotate(rotation);
+
+	matrix33 mxt;
+	mxt.translate(translation);
+
+	mxWorld = mxs * mxr * mxt;
+}

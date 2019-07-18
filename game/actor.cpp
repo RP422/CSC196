@@ -20,12 +20,16 @@ void Actor::Update(float dt)
 
 void Actor::Draw(Core::Graphics & graphics)
 {
+	m_transform.update();
+
 	graphics.SetColor(m_color);
 	
 	for (size_t i = 0; i < m_verticies.size() - 1; i++)
 	{
-		vector2 v1 = m_transform.translation + vector2::rotate(m_verticies[i], m_transform.rotation) * m_transform.scale;
-		vector2 v2 = m_transform.translation + vector2::rotate(m_verticies[i + 1], m_transform.rotation) * m_transform.scale;
+		//vector2 v1 = m_transform.translation + vector2::rotate(m_verticies[i], m_transform.rotation) * m_transform.scale;
+		//vector2 v2 = m_transform.translation + vector2::rotate(m_verticies[i + 1], m_transform.rotation) * m_transform.scale;
+		vector2 v1 = m_verticies[i] * m_transform.mxWorld;
+		vector2 v2 = m_verticies[i +1] * m_transform.mxWorld;
 		graphics.DrawLine(v1.x, v1.y, v2.x, v2.y);
 	}
 }

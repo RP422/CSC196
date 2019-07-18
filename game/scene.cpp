@@ -19,11 +19,12 @@ void Scene::Shutdown()
 
 void Scene::Update(float dt)
 {
-	DestroyFlaggedActors();
 	for (Actor* actor : m_actors)
 	{
 		actor->Update(dt);
 	}
+
+	DestroyFlaggedActors();
 }
 
 void Scene::Draw(Core::Graphics& graphics)
@@ -128,12 +129,21 @@ void Scene::AddActor(Actor* actor)
 
 void Scene::DestroyFlaggedActors()
 {
+	std::list<Actor*> flaggedActors;
+
 	for (Actor* actor : m_actors)
 	{
 		if (actor->IsFlaggedForDestruction())
 		{
-			m_actors.remove(actor);
-			delete actor;
+			flaggedActors.push_back(actor);
 		}
+	}
+
+	while (flaggedActors.size() > 0)
+	{
+		Actor* front = flaggedActors.front();
+		m_actors.remove(front);
+
+		flaggedActors.pop_front();
 	}
 }

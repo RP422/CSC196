@@ -6,11 +6,36 @@ void Missile::Update(float dt)
 	vector2 forward = vector2::rotate(vector2::up, m_transform.rotation);
 	m_transform.translation += forward * m_speed * dt;
 
-	// Remove this stuff to disable screen wrapping
-	if (m_transform.translation.x > 800.0f) m_transform.translation.x = 0.0f;
-	if (m_transform.translation.x < 0.0f)   m_transform.translation.x = 800.0f;
-	if (m_transform.translation.y > 600.0f) m_transform.translation.y = 0.0f;
-	if (m_transform.translation.y < 0.0f)   m_transform.translation.y = 600.0f;
+	m_lifetime -= dt;
+
+	if (m_lifetime <= 0)
+	{
+		FlagForDestruction();
+	}
+
+	//// With Screen Wrapping
+	//if (m_transform.translation.x > 800.0f) m_transform.translation.x = 0.0f;
+	//if (m_transform.translation.x < 0.0f)   m_transform.translation.x = 800.0f;
+	//if (m_transform.translation.y > 600.0f) m_transform.translation.y = 0.0f;
+	//if (m_transform.translation.y < 0.0f)   m_transform.translation.y = 600.0f;
+
+	// Without Screen Wrapping
+	if (m_transform.translation.x > 800.0f)
+	{ 
+		FlagForDestruction();	
+	}
+	if (m_transform.translation.x < 0.0f)
+	{
+		FlagForDestruction();
+	}
+	if (m_transform.translation.y > 600.0f)
+	{
+		FlagForDestruction();
+	}
+	if (m_transform.translation.y < 0.0f)
+	{
+		FlagForDestruction();
+	}
 }
 
 bool Missile::Load(const rapidjson::Value& value)

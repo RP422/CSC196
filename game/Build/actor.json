@@ -30,7 +30,7 @@
     {
       "type": "Missile",
       "name": "Missile_Spawner",
-      "speed": 75.0,
+      "speed": 175.0,
       "rotate": 0.0,
       "transform": {
         "position": [ 200.0, 200.0 ],

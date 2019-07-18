@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math.h" />
+    <ClInclude Include="matrix33.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="vector2.h" />
   </ItemGroup>

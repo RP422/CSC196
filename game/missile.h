@@ -19,4 +19,6 @@ public:
 private:
 	float m_speed = 0.0f;
 	float m_rotate = 0.0f;
+
+	float m_lifetime = 3.0f;
 };
