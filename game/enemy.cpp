@@ -17,29 +17,29 @@ void Enemy::Update(float dt)
 
 	// TODO: Figure out a way for the enemy to fire missiles?
 
-	// With Screen Wrapping
-	if (m_transform.translation.x > 1200.0f) m_transform.translation.x = 0.0f;
-	if (m_transform.translation.x < 0.0f)   m_transform.translation.x = 1200.0f;
-	if (m_transform.translation.y > 800.0f) m_transform.translation.y = 0.0f;
-	if (m_transform.translation.y < 0.0f)   m_transform.translation.y = 800.0f;
+	//// With Screen Wrapping
+	//if (m_transform.translation.x > 1200.0f) m_transform.translation.x = 0.0f;
+	//if (m_transform.translation.x < 0.0f)   m_transform.translation.x = 1200.0f;
+	//if (m_transform.translation.y > 800.0f) m_transform.translation.y = 0.0f;
+	//if (m_transform.translation.y < 0.0f)   m_transform.translation.y = 800.0f;
 
-	//// Without Screen Wrapping
-	//if (m_transform.translation.x > 1200.0f)
-	//{
-	//	FlagForDestruction();
-	//}
-	//if (m_transform.translation.x < 0.0f)
-	//{
-	//	FlagForDestruction();
-	//}
-	//if (m_transform.translation.y > 800.0f)
-	//{
-	//	FlagForDestruction();
-	//}
-	//if (m_transform.translation.y < 0.0f)
-	//{
-	//	FlagForDestruction();
-	//}
+	// Without Screen Wrapping
+	if (m_transform.translation.x > 1200.0f)
+	{
+		FlagForDestruction();
+	}
+	if (m_transform.translation.x < 0.0f)
+	{
+		FlagForDestruction();
+	}
+	if (m_transform.translation.y > 800.0f)
+	{
+		FlagForDestruction();
+	}
+	if (m_transform.translation.y < 0.0f)
+	{
+		FlagForDestruction();
+	}
 }
 
 bool Enemy::Load(const rapidjson::Value& value)

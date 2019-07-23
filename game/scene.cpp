@@ -154,7 +154,7 @@ Actor * Scene::GetActorByName(const std::string & name)
 	{
 		if (actor->GetName() == name)
 		{
-			actor = r_actor;
+			r_actor = actor;
 			break;
 		}
 	}
