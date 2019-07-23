@@ -28,6 +28,9 @@
     <ClCompile Include="missile.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actor.h">
@@ -43,6 +46,9 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="missile.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>

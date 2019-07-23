@@ -9,6 +9,7 @@ class CreatorBase
 {
 public:
 	virtual TBase* Create() const = 0; // Abstract method in abstract class
+	virtual ~CreatorBase() {}
 };
 
 
@@ -17,6 +18,7 @@ class Creator : public CreatorBase<TBase>
 {
 public:
 	virtual TBase* Create() const { return new T; }
+	virtual ~Creator() {}
 };
 
 

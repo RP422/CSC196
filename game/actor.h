@@ -25,6 +25,7 @@ public:
 
 	void SetScene(Scene* scene) { m_scene = scene; }
 	const std::string& GetName() { return m_name; }
+	const std::string& GetTag() { return m_tag; }
 
 	virtual Actor* Clone() { return new Actor(*this); }
 
@@ -34,6 +35,8 @@ public:
 // We'd rather this all protected, but we're having problems with access
 public:
 	std::string m_name;
+	std::string m_tag;
+
 	transform m_transform;
 	Scene* m_scene;
 

@@ -6,22 +6,78 @@
 
 void Game::Startup()
 {
-	//rapidjson::Document document;
-	//json::load("actor.json", document);
-	
-	m_scene.Startup();
-	//m_scene.Load("scene01.json");
-	m_scene.Load("actor.json");
+	m_state = eState::INIT;
+
+	AudioSystem::Instance()->Startup();
 }
 
 void Game::Shutdown()
 {
+	if (m_scene)
+	{
+		m_scene->Shutdown();
+		delete m_scene;
+	}
 
+	AudioSystem::Instance()->Shutdown();
+	AudioSystem::Destroy();
 }
 
 bool Game::Update(float dt)
 {
-	m_scene.Update(dt);
+	switch (m_state)
+	{
+	case Game::INIT:
+		m_state = eState::TITLE;
+		break;
+
+	case Game::TITLE:
+		if (Core::Input::IsPressed(Core::Input::KEY_SPACE))
+		{
+			m_state = eState::START_GAME;
+		}
+		break;
+
+	case Game::START_GAME:
+		m_scene = new Scene(this);
+		m_scene->Startup();
+		m_scene->Load("actor.json");
+
+		m_lives = 3;
+		m_score = 0;
+		m_state = eState::UPDATE_GAME;
+		break;
+
+	case Game::UPDATE_GAME:
+		if (m_lives == 0)
+		{
+			m_stateTimer = 3.0f;
+			m_state = eState::GAME_OVER;
+		}
+		m_scene->Update(dt);
+		break;
+
+	case Game::GAME_OVER:
+		m_stateTimer -= dt;
+		if (m_stateTimer <= 0.0f)
+		{
+			m_state = eState::RESET;
+		}
+		m_scene->Update(dt);
+		break;
+
+	case Game::RESET:
+		m_scene->Shutdown();
+		delete m_scene;
+
+		m_state = eState::TITLE;
+		break;
+
+	default:
+		break;
+	}
+
+	AudioSystem::Instance()->Update();
 
 	bool quit = false;
 	if (Core::Input::IsPressed(Core::Input::KEY_ESCAPE))
@@ -34,12 +90,31 @@ bool Game::Update(float dt)
 
 void Game::Draw(Core::Graphics & graphics)
 {
-	m_scene.Draw(graphics);
+	color textColor = color::white;
+	graphics.SetColor(textColor);
 
-	//color c(1.0f, 0.0f, 0.0f);
-	//graphics.SetColor(c);
+	switch (m_state)
+	{
+	case Game::TITLE:
+		graphics.DrawString(400, 300, "Graboids");
+		break;
+	case Game::UPDATE_GAME:
+		{
+			std::string score = "Score: " + std::to_string(m_score) + "\nLives: " + std::to_string(m_lives);
+			graphics.DrawString(20, 20, score.c_str());
+		}
+		m_scene->Draw(graphics);
+		break;
+	case Game::GAME_OVER:
+		graphics.DrawString(400, 300, "Game Over");
+		{
+			std::string score = "Score: " + std::to_string(m_score) + "\nLives: " + std::to_string(m_lives);
+			graphics.DrawString(20, 20, score.c_str());
+		}
+		m_scene->Draw(graphics);
+		break;
+	default:
+		break;
+	}
 
-	//vector2 v1(m_random(800.0f), m_random(600.0f));
-	//vector2 v2(m_random(800.0f), m_random(600.0f));
-	//graphics.DrawLine(v1.x, v1.y, v2.x, v2.y);
 }

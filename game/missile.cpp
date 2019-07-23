@@ -1,5 +1,6 @@
 #include "missile.h"
 #include "scene.h"
+#include "game.h"
 
 void Missile::Update(float dt)
 {
@@ -35,6 +36,24 @@ void Missile::Update(float dt)
 	if (m_transform.translation.y < 0.0f)
 	{
 		FlagForDestruction();
+	}
+
+	std::vector<Actor*> enemies = m_scene->GetActorsByTag("Enemy");
+
+	for (Actor* enemy : enemies)
+	{
+		float distance = vector2::distance(enemy->m_transform.translation, m_transform.translation);
+
+		if (distance <= 15.0f)
+		{
+			if (!enemy->IsFlaggedForDestruction())
+			{
+				m_scene->GetGame()->IncrementScore(100);
+				FlagForDestruction();
+				enemy->FlagForDestruction();
+				break;
+			}
+		}
 	}
 }
 

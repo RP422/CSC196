@@ -19,11 +19,29 @@ void Player::Update(float dt)
 
 	if (Core::Input::IsPressed(Core::Input::KEY_SPACE))
 	{
-		Actor* actor = ActorFactory::Instance()->Create("Missile_Spawner");
+		Actor* actor = m_scene->GetActorFactory()->Create("Missile_Spawner");
 		actor->m_transform.translation = m_transform.translation;
 		actor->m_transform.rotation = m_transform.rotation;
 
 		m_scene->AddActor(actor);
+		AudioSystem::Instance()->PlayAudio("Missile");
+	}
+
+	std::vector<Actor*> enemies = m_scene->GetActorsByTag("Enemy");
+
+	for (Actor* enemy : enemies)
+	{
+		float distance = vector2::distance(enemy->m_transform.translation, m_transform.translation);
+
+		if (distance <= 5.0f)
+		{
+			if (!enemy->IsFlaggedForDestruction())
+			{
+				FlagForDestruction();
+				enemy->FlagForDestruction();
+				break;
+			}
+		}
 	}
 }
 

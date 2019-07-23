@@ -7,35 +7,16 @@
 
 #include <iostream>
 
-random_real_t random;
-
-//class GameObject
-//{
-//
-//};
-//class Player : public GameObject
-//{
-//
-//};
-//class Enemy : public GameObject
-//{
-//
-//};
+Game* game;
 
 bool Update(float dt)
 {
-	bool quit = false;
-	if (Game::Instance()->Update(dt))
-	{
-		quit = true;
-	}
-
-	return quit;
+	return game->Update(dt);
 }
 
 void Draw(Core::Graphics& graphics)
 {
-	Game::Instance()->Draw(graphics);
+	game->Draw(graphics);
 }
 
 void JsonLoadTest()
@@ -49,7 +30,8 @@ void JsonLoadTest()
 
 int main()
 {
-	Game::Instance()->Startup();
+	game = new Game();
+	game->Startup();
 
 	//Factory<GameObject> factory;
 	//factory.Register("PLAYER", new Creator<Player, GameObject>);
@@ -65,6 +47,5 @@ int main()
 	Core::GameLoop();
 	Core::Shutdown();
 
-	Game::Instance()->Shutdown();
-	Game::Instance()->Destroy();
+	game->Shutdown();
 }
