@@ -19,4 +19,7 @@ public:
 private:
 	float m_speed = 0.0f;
 	float m_rotate = 0.0f;
+
+	float m_spawnTimer = 0.0f;
+	float m_spawnRate = 0.125f;
 };

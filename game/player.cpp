@@ -17,8 +17,11 @@ void Player::Update(float dt)
 	if (m_transform.translation.y > 800.0f) m_transform.translation.y = 0.0f;
 	if (m_transform.translation.y < 0.0f)   m_transform.translation.y = 800.0f;
 
-	if (Core::Input::IsPressed(Core::Input::KEY_SPACE))
+	m_spawnTimer += dt;
+	if (m_spawnTimer >= m_spawnRate && Core::Input::IsPressed(Core::Input::KEY_SPACE))
 	{
+		m_spawnTimer = 0;
+
 		Actor* actor = m_scene->GetActorFactory()->Create("Missile_Spawner");
 		actor->m_transform.translation = m_transform.translation;
 		actor->m_transform.rotation = m_transform.rotation;
