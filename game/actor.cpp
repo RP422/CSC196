@@ -47,15 +47,17 @@ bool Actor::Load(const rapidjson::Value & value)
 
 			if (json::get_color(value, "color", m_color))
 			{
-				const rapidjson::Value& vvalue = value["vertex"];
-
-				if (vvalue.IsArray())
+				success = true;
+				if (value.HasMember("vertex"))
 				{
-					if (json::get_vector2(vvalue, "v", m_verticies))
+					const rapidjson::Value& vvalue = value["vertex"];
+
+					if (vvalue.IsArray())
 					{
-						success = true;
+						json::get_vector2(vvalue, "v", m_verticies);
 					}
 				}
+				
 			}
 		}
 	}

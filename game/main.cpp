@@ -48,4 +48,5 @@ int main()
 	Core::Shutdown();
 
 	game->Shutdown();
+	delete game;
 }

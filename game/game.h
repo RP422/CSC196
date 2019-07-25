@@ -13,6 +13,7 @@ public:
 		TITLE,
 		START_GAME,
 		UPDATE_GAME,
+		RESPAWN,
 		GAME_OVER,
 		RESET
 	};

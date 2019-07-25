@@ -2,24 +2,33 @@
 #include "player.h"
 #include "enemy.h"
 #include "missile.h"
+#include "emitter.h"
+#include "../effects/particle_system.h"
 
 void Scene::Startup()
 {
+	m_particleSystem = new ParticleSystem(2000);
+
 	m_actorFactory = new ActorFactory;
 	m_actorFactory->Register("Player", new Creator<Player, Actor>());
 	m_actorFactory->Register("Enemy", new Creator<Enemy, Actor>());
 	m_actorFactory->Register("Missile", new Creator<Missile, Actor>());
+	m_actorFactory->Register("Emitter", new Creator<Emitter, Actor>());
 
 	AudioSystem::Instance()->AddAudio("Missile", "audio/missile.wav");
+	AudioSystem::Instance()->AddAudio("Explosion", "audio/explosion.wav");
 }
 
 void Scene::Shutdown()
 {
-	delete m_actorFactory;
+	// Typically you want to reverse the order of creation in here to avoid dependency bs.
 	for (Actor* actor : m_actors)
 	{
 		delete actor;
 	}
+
+	delete m_actorFactory;
+	delete m_particleSystem;
 }
 
 void Scene::Update(float dt)
@@ -43,6 +52,8 @@ void Scene::Update(float dt)
 		actor->Update(dt);
 	}
 
+	m_particleSystem->Update(dt);
+
 	DestroyFlaggedActors();
 }
 
@@ -52,6 +63,7 @@ void Scene::Draw(Core::Graphics& graphics)
 	{
 		actor->Draw(graphics);
 	}
+	m_particleSystem->Draw(graphics);
 }
 
 // Take a good look at this method
@@ -118,24 +130,9 @@ bool Scene::Load(const char* filename)
 	rapidjson::Document document;
 	json::load(filename, document);
 
-	const rapidjson::Value& actors = document["actors"];
 	const rapidjson::Value& spawners = document["spawners"];
 
-	bool success = false;
-
-	if (actors.IsArray())
-	{
-		if (LoadActors(actors))
-		{
-			if (spawners.IsArray())
-			{
-				if (LoadSpawners(spawners))
-				{
-					success = true;
-				}
-			}
-		}
-	}
+	bool success = spawners.IsArray() && LoadSpawners(spawners);
 
 	return success;
 }
@@ -195,5 +192,7 @@ void Scene::DestroyFlaggedActors()
 		m_actors.remove(front);
 
 		flaggedActors.pop_front();
+
+		delete front;
 	}
 }

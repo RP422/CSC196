@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="actor.cpp" />
+    <ClCompile Include="emitter.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -30,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="actor.h" />
+    <ClInclude Include="emitter.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="missile.h" />
@@ -42,6 +44,9 @@
     </ProjectReference>
     <ProjectReference Include="..\core\core.vcxproj">
       <Project>{4264259b-1ba7-4731-b6cd-812062b64b17}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\effects\effects.vcxproj">
+      <Project>{92270411-1171-4117-a1ea-e0b7fae2e324}</Project>
     </ProjectReference>
     <ProjectReference Include="..\framework\framework.vcxproj">
       <Project>{9aaddfcd-adf3-48a0-b706-64a4410ad474}</Project>
@@ -138,7 +143,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>

@@ -5,10 +5,11 @@
 #include <new>
 #include <iostream>
 
-#define MEMORY_SIGNATURE 0xDEADCA75
+#define MEMORY_SIGNATURE 0xDEADCA75 //3735931509
 
 heap::~heap()
 {
+	//free(m_alloc_head);
 	report();
 	ASSERT_MSG(m_allocations == 0, "Memory leak.");
 }
@@ -51,16 +52,21 @@ void * heap::allocate(size_t size)
 void heap::free(void * ptr)
 {
 	alloc_header* header = (alloc_header*)((u8*)ptr - sizeof(alloc_header));
-	ASSERT(header->signature == MEMORY_SIGNATURE);
+	//ASSERT(header->signature == MEMORY_SIGNATURE);
 
-	free(header);
+	if (header->signature == MEMORY_SIGNATURE)
+	{
+		free(header);
+	}
 }
 
 void heap::report()
 {
-	std::cout << "Currently Allocated: " << m_allocated << std::endl;
 	std::cout << "Total Allocated: " << m_allocated_total << std::endl;
 	std::cout << "Total Freed: " << m_freed << std::endl;
+	std::cout << std::endl;
+	std::cout << "Currently Allocated: " << m_allocated << std::endl;
+	std::cout << "Current Allocations: " << m_allocations << std::endl;
 }
 
 void heap::free(alloc_header * header)

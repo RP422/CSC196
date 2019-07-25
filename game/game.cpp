@@ -25,6 +25,8 @@ void Game::Shutdown()
 
 bool Game::Update(float dt)
 {
+	Actor* actor = nullptr;
+
 	switch (m_state)
 	{
 	case Game::INIT:
@@ -42,6 +44,9 @@ bool Game::Update(float dt)
 		m_scene = new Scene(this);
 		m_scene->Startup();
 		m_scene->Load("actor.json");
+		
+		actor = m_scene->GetActorFactory()->Create("Player_Spawner");
+		m_scene->AddActor(actor);
 
 		m_lives = 3;
 		m_score = 0;
@@ -49,11 +54,35 @@ bool Game::Update(float dt)
 		break;
 
 	case Game::UPDATE_GAME:
-		if (m_lives == 0)
+		if (m_scene->GetActorByName("Player_Spawner") == nullptr)
 		{
-			m_stateTimer = 3.0f;
-			m_state = eState::GAME_OVER;
+			m_lives--;
+
+			if (m_lives == 0)
+			{
+				m_stateTimer = 4.0f;
+				m_state = eState::GAME_OVER;
+			}
+			else
+			{
+				m_stateTimer = 2.0f;
+				m_state = eState::RESPAWN;
+			}
 		}
+
+		m_scene->Update(dt);
+		break;
+
+	case Game::RESPAWN:
+		m_stateTimer -= dt;
+
+		if (m_stateTimer <= 0.0f)
+		{
+			actor = m_scene->GetActorFactory()->Create("Player_Spawner");
+			m_scene->AddActor(actor);
+			m_state = eState::UPDATE_GAME;
+		}
+
 		m_scene->Update(dt);
 		break;
 
@@ -69,6 +98,7 @@ bool Game::Update(float dt)
 	case Game::RESET:
 		m_scene->Shutdown();
 		delete m_scene;
+		m_scene = nullptr;
 
 		m_state = eState::TITLE;
 		break;
@@ -96,9 +126,10 @@ void Game::Draw(Core::Graphics & graphics)
 	switch (m_state)
 	{
 	case Game::TITLE:
-		graphics.DrawString(400, 300, "Graboids");
+		graphics.DrawString(569, 396, "Grabroids");
 		break;
 	case Game::UPDATE_GAME:
+	case Game::RESPAWN:
 		{
 			std::string score = "Score: " + std::to_string(m_score) + "\nLives: " + std::to_string(m_lives);
 			graphics.DrawString(20, 20, score.c_str());
@@ -106,7 +137,7 @@ void Game::Draw(Core::Graphics & graphics)
 		m_scene->Draw(graphics);
 		break;
 	case Game::GAME_OVER:
-		graphics.DrawString(400, 300, "Game Over");
+		graphics.DrawString(569, 396, "Game Over");
 		{
 			std::string score = "Score: " + std::to_string(m_score) + "\nLives: " + std::to_string(m_lives);
 			graphics.DrawString(20, 20, score.c_str());

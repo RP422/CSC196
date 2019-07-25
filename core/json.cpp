@@ -14,7 +14,7 @@ namespace json
 		if (filesystem::read_file(filename, (void**)& buffer, size))
 		{
 			buffer[size - 1] = 0; // Make sure there's a newline after the last character in the json
-			std::cout << buffer << std::endl; // Debug Line
+			//std::cout << buffer << std::endl; // Debug Line
 			document.Parse(buffer);
 			success = document.IsObject();
 
@@ -175,6 +175,33 @@ namespace json
 					r_color.g = property[1].GetFloat();
 					r_color.b = property[2].GetFloat();
 				}
+			}
+		}
+
+		return success;
+	}
+	bool get_color(const rapidjson::Value & value, const char * property_name, std::vector<color>& r_color)
+	{
+		bool success = true;
+
+		for (rapidjson::SizeType i = 0; success && i < value.Size(); i++)
+		{
+			const rapidjson::Value& color_value = value[i];
+
+			if (color_value.IsObject())
+			{
+				color hue;
+
+				success = get_color(color_value, property_name, hue);
+
+				if (success)
+				{
+					r_color.push_back(hue);
+				}
+			}
+			else
+			{
+				success = false;
 			}
 		}
 

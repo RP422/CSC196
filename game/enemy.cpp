@@ -3,17 +3,17 @@
 
 void Enemy::Update(float dt)
 {
-	Actor* target = m_scene->GetActorByName("Player");
+	Actor* target = m_scene->GetActorByName("Player_Spawner");
 
 	if (target)
 	{
 		vector2 direction = target->m_transform.translation - m_transform.translation;
 		float angle = vector2::get_angle(direction);
 		m_transform.rotation = angle - math::HALF_PI;
-
-		vector2 forward = vector2::rotate(vector2::up, m_transform.rotation);
-		m_transform.translation += forward * m_speed * dt;
 	}
+
+	vector2 forward = vector2::rotate(vector2::up, m_transform.rotation);
+	m_transform.translation += forward * m_speed * dt;
 
 	// TODO: Figure out a way for the enemy to fire missiles?
 

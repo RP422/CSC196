@@ -33,12 +33,22 @@ void Player::Update(float dt)
 	{
 		float distance = vector2::distance(enemy->m_transform.translation, m_transform.translation);
 
-		if (distance <= 5.0f)
+		if (distance <= 20.0f)
 		{
 			if (!enemy->IsFlaggedForDestruction())
 			{
 				FlagForDestruction();
 				enemy->FlagForDestruction();
+
+				Actor* actor;
+
+				actor = m_scene->GetActorFactory()->Create("Explosion_Spawner");
+				actor->m_transform.translation = m_transform.translation;
+				actor->m_transform.rotation = enemy->m_transform.rotation + (180 * math::DEG_TO_RAD);
+
+				AudioSystem::Instance()->PlayAudio("Explosion");
+				m_scene->AddActor(actor);
+
 				break;
 			}
 		}

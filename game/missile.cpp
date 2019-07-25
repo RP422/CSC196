@@ -51,6 +51,16 @@ void Missile::Update(float dt)
 				m_scene->GetGame()->IncrementScore(100);
 				FlagForDestruction();
 				enemy->FlagForDestruction();
+
+				Actor* actor;
+
+				actor = m_scene->GetActorFactory()->Create("Explosion_Spawner");
+				actor->m_transform.translation = enemy->m_transform.translation;
+				actor->m_transform.rotation = enemy->m_transform.rotation;
+
+				AudioSystem::Instance()->PlayAudio("Explosion");
+				m_scene->AddActor(actor);
+
 				break;
 			}
 		}

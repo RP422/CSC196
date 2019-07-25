@@ -29,7 +29,10 @@ public:
 
 	virtual Actor* Clone() { return new Actor(*this); }
 
-	void FlagForDestruction() { m_destroy = true; }
+	void FlagImmortal() { m_immortal = true; }
+	void FlagMortal() { m_immortal = false; }
+	void FlagForDestruction() { if (!m_immortal) m_destroy = true; }
+
 	bool IsFlaggedForDestruction() { return m_destroy; }
 
 // We'd rather this all protected, but we're having problems with access
@@ -45,4 +48,5 @@ public:
 
 private:
 	bool m_destroy = false;
+	bool m_immortal = false;
 };
